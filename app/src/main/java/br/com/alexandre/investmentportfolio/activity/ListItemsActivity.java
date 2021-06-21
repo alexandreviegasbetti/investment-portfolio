@@ -22,13 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.alexandre.investmentportfolio.R;
-import br.com.alexandre.investmentportfolio.adapter.AdapterInvetmentPortfolio;
+import br.com.alexandre.investmentportfolio.adapter.AdapterInvestmentPortfolio;
 import br.com.alexandre.investmentportfolio.config.FireBaseConfig;
 import br.com.alexandre.investmentportfolio.entity.Investment;
 
 import static br.com.alexandre.investmentportfolio.config.FireBaseConfig.getReferenceInvestment;
-import static br.com.alexandre.investmentportfolio.enums.IntentValue.ACTION;
-import static br.com.alexandre.investmentportfolio.enums.IntentValue.EDIT;
 import static java.util.Objects.requireNonNull;
 
 public class ListItemsActivity extends AppCompatActivity {
@@ -36,7 +34,7 @@ public class ListItemsActivity extends AppCompatActivity {
     private final DatabaseReference myRefInvest = getReferenceInvestment();
     private final List<Investment> investmentList = new ArrayList<>();
 
-    private AdapterInvetmentPortfolio adapter;
+    private AdapterInvestmentPortfolio adapter;
     private ValueEventListener valueEventListener;
     private ListView lvInvestment;
 
@@ -51,7 +49,7 @@ public class ListItemsActivity extends AppCompatActivity {
         fab.setOnClickListener(view -> saveNewOnItemClick());
 
         lvInvestment = findViewById(R.id.lvInvestment);
-        adapter = new AdapterInvetmentPortfolio(this, investmentList);
+        adapter = new AdapterInvestmentPortfolio(this, investmentList);
         lvInvestment.setAdapter(adapter);
 
         editOnItemClick();
@@ -82,7 +80,6 @@ public class ListItemsActivity extends AppCompatActivity {
         lvInvestment.setOnItemClickListener((parent, view, position, id) -> {
             Investment selectedInvestment = investmentList.get(position);
             Intent intent = new Intent(ListItemsActivity.this, FormEditItemActivity.class);
-            intent.putExtra(ACTION.toString(), EDIT.toString());
             intent.putExtra("id", selectedInvestment.getId());
             intent.putExtra("value", selectedInvestment.getValue().toString());
             intent.putExtra("totalValue", selectedInvestment.getTotalValue().toString());

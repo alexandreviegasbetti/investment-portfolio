@@ -14,15 +14,13 @@ import br.com.alexandre.investmentportfolio.entity.SupportItem;
 
 import static java.util.Objects.isNull;
 
-public class AdapterInvetmentPortfolio extends BaseAdapter {
+public class AdapterInvestmentPortfolio extends BaseAdapter {
 
-    private List<Investment> investmentList;
-    private Context context;
-    private LayoutInflater inflater;
+    private final List<Investment> investmentList;
+    private final LayoutInflater inflater;
 
-    public AdapterInvetmentPortfolio(Context context, List<Investment> investmentList) {
+    public AdapterInvestmentPortfolio(Context context, List<Investment> investmentList) {
         this.investmentList = investmentList;
-        this.context = context;
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -40,11 +38,6 @@ public class AdapterInvetmentPortfolio extends BaseAdapter {
     public long getItemId(int position) {
         return 0;
     }
-
-//    @Override
-//    public String getItemId(int position) {
-//        return investmentList.get(position).getId();
-//    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

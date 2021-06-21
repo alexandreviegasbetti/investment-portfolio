@@ -1,8 +1,5 @@
 package br.com.alexandre.investmentportfolio.entity;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

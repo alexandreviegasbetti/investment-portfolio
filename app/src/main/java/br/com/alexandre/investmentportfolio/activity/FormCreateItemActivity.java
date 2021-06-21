@@ -21,9 +21,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import br.com.alexandre.investmentportfolio.R;
 import br.com.alexandre.investmentportfolio.config.FireBaseConfig;
@@ -34,13 +34,20 @@ import static android.R.layout.simple_spinner_dropdown_item;
 import static android.R.layout.simple_spinner_item;
 import static br.com.alexandre.investmentportfolio.config.FireBaseConfig.getReferenceCompany;
 import static br.com.alexandre.investmentportfolio.config.FireBaseConfig.getReferenceInvestment;
+import static java.lang.Double.valueOf;
+import static java.math.BigDecimal.ROUND_UNNECESSARY;
+import static java.math.RoundingMode.HALF_UP;
+import static java.util.Objects.requireNonNull;
 
 public class FormCreateItemActivity extends AppCompatActivity {
 
     private final DatabaseReference myRefCompany = getReferenceCompany();
     private final DatabaseReference myRefInvest = getReferenceInvestment();
     private final List<Company> companyList = new ArrayList<>();
-    private final List<String> codeList = new ArrayList<>();
+    private final List<Investment> investmentList = new ArrayList<>();
+    private List<String> codeList;
+    private ValueEventListener valueEventListener;
+    private Investment investmentByCode;
 
     private Spinner spinner;
     private EditText quantity;
@@ -82,6 +89,13 @@ public class FormCreateItemActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private Investment findByCode(String code) {
+        return investmentList.stream()
+                .filter(x -> Objects.equals(x.getCode(), code))
+                .findFirst()
+                .orElse(null);
+    }
+
     private void addNewCompany() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -111,7 +125,7 @@ public class FormCreateItemActivity extends AppCompatActivity {
                         getResources().getString(R.string.name_not_null), Toast.LENGTH_LONG).show();
             } else {
                 myRefCompany.push().setValue(company);
-                finish();
+                getSpinnerValues();
             }
             dialog.dismiss();
         });
@@ -124,23 +138,41 @@ public class FormCreateItemActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         } else {
             Integer qtd = Integer.valueOf(this.quantity.getText().toString());
-            Double val = Double.valueOf(this.value.getText().toString());
+            Double val = valueOf(this.value.getText().toString());
             String code = spinner.getSelectedItem().toString();
+            Double totalValue = getTotalValue(qtd, val);
 
-            Investment investment = Investment
-                    .builder()
-                    .code(code)
-                    .purchaseDate(date.getText().toString())
-                    .quantity(qtd)
-                    .value(val)
-                    .totalValue(getTotalValue(qtd, val))
-                    .name(getCompanyName(code))
-                    .build();
+            investmentByCode = findByCode(code);
+            if (Objects.nonNull(investmentByCode)) {
+                Investment newInvestmentAveragePrice = newInvestmentAveragePrice(qtd, code, totalValue);
+                myRefInvest.child(investmentByCode.getId()).setValue(newInvestmentAveragePrice);
+            } else {
+                Investment investment = investmentBuilder(qtd, val, code, totalValue);
+                myRefInvest.push().setValue(investment);
+            }
 
-            myRefInvest.push().setValue(investment);
             Intent intent = new Intent(this, ListItemsActivity.class);
             startActivity(intent);
         }
+    }
+
+    private Investment investmentBuilder(Integer qtd, Double val, String code, Double totalValue) {
+        return Investment.builder()
+                .code(code)
+                .purchaseDate(date.getText().toString())
+                .quantity(qtd)
+                .value(val)
+                .totalValue(totalValue)
+                .name(getCompanyName(code))
+                .build();
+    }
+
+    private Investment newInvestmentAveragePrice(Integer qtd, String code, Double totalValue) {
+        BigDecimal newQuantity = new BigDecimal(investmentByCode.getQuantity()).add(BigDecimal.valueOf(qtd));
+        BigDecimal newTotalValue = BigDecimal.valueOf(investmentByCode.getTotalValue())
+                .add(BigDecimal.valueOf(totalValue)).setScale(2, HALF_UP);
+        BigDecimal newValue = newTotalValue.divide(newQuantity, 2, HALF_UP);
+        return investmentBuilder(newQuantity.intValue(), newValue.doubleValue(), code, newTotalValue.doubleValue());
     }
 
     @Override
@@ -157,10 +189,11 @@ public class FormCreateItemActivity extends AppCompatActivity {
 
     private Double getTotalValue(Integer quantity, Double value) {
         return BigDecimal.valueOf(quantity).multiply(BigDecimal.valueOf(value))
-                .setScale(2, RoundingMode.HALF_UP).doubleValue();
+                .setScale(2, HALF_UP).doubleValue();
     }
 
     public void getSpinnerValues() {
+        codeList = new ArrayList<>();
         myRefCompany.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -189,6 +222,37 @@ public class FormCreateItemActivity extends AppCompatActivity {
                 .findFirst()
                 .orElse(new Company())
                 .getName();
+    }
+
+    private void listAllSelectedInvestments() {
+        valueEventListener = myRefInvest.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot s : snapshot.getChildren()) {
+                    Investment investment = s.getValue(Investment.class);
+                    requireNonNull(investment).setId(s.getKey());
+                    investmentList.add(investment);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(FormCreateItemActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        investmentList.clear();
+        listAllSelectedInvestments();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        myRefInvest.removeEventListener(valueEventListener);
     }
 
 }
