@@ -22,6 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -202,6 +204,7 @@ public class FormCreateItemActivity extends AppCompatActivity {
                     Company company = co.getValue(Company.class);
                     companyList.add(company);
                 });
+                Collections.sort(codeList, Comparator.comparing(String::valueOf));
                 arrayAdapter = new ArrayAdapter<>(FormCreateItemActivity.this, simple_spinner_item, codeList);
                 arrayAdapter.setDropDownViewResource(simple_spinner_dropdown_item);
                 spinner.setAdapter(arrayAdapter);
