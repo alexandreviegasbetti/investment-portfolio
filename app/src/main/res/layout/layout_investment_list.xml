@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="15dp"
+    android:id="@+id/listBackground"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_layout_investment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/codeList"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/string_tv"
+                android:background="@drawable/border_text_view"
+                android:text="ABEV4"
+                android:textSize="18dp"
+                />
+
+            <TextView
+                android:id="@+id/nameList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:text="name"
+                android:textSize="18dp"
+                />
+
+            <TextView
+                android:id="@+id/totalValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/amount"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="2dp"
+                android:textSize="18dp"
+                />
+
+            <TextView
+                android:id="@+id/totalValueList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="totalValue"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/qty"
+                android:layout_marginRight="2dp"
+                android:textSize="18dp"/>
+            <TextView
+                android:id="@+id/quantityList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="quantity"
+                android:textSize="18dp"/>
+
+            <TextView
+                android:id="@+id/value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/coin"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/valueList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="value"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/purchaseDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/purchaseDateList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="purchaseDate"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

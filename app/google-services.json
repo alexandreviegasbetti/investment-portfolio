@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "782814502406",
+    "project_id": "investmentportfolio-70e7f",
+    "storage_bucket": "investmentportfolio-70e7f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782814502406:android:1c22cc958a9b6358662d87",
+        "android_client_info": {
+          "package_name": "br.com.alexandre.investmentportfolio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "782814502406-hel8c1jllqia5vs5kf9qmlebkhldir8b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxnIsDQ2j0UnoXLrpdAh1F0GQszuA8PN0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "782814502406-hel8c1jllqia5vs5kf9qmlebkhldir8b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

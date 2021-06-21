@@ -1,3 +1,36 @@
 <resources>
-    <string name="app_name">Investment Portfolio App</string>
+    <string name="app_name">CARTEIRA DE INVESTIMENTOS</string>
+    <string name="title_activity_list">LISTA DE INVESTIMENTOS</string>
+    <string name="title_activity_item_edit_list">EDITAR INVESTIMENTO</string>
+    <string name="title_activity_item_create_list">CRIAR INVESTIMENTO</string>
+    <string name="action_settings">CONFIGURAÇÕES</string>
+    <string name="insert_company_code">CODIGO DA AÇÃO:</string>
+    <string name="stock_quantity">QUANTIDADE:</string>
+    <string name="hint_insert_quantity">INSIRA QUANTIDADE</string>
+    <string name="value">INSIRA O VALOR:</string>
+    <string name="hint_value">00.00</string>
+    <string name="purchase_date">DATA DA COMPRA:</string>
+    <string name="hint_insert_purchase_date"> DD/MM/AAAA</string>
+    <string name="btn_save">SALVAR</string>
+    <string name="fields_validation">TODOS CAMPOS DEVEM SER PREENCHIDOS!</string>
+    <string name="attention">ATENÇÃO</string>
+    <string name="cancel">CANCELAR</string>
+    <string name="yes">SIM</string>
+    <string name="exclusion_of_the_investment">CONFIRMA A EXCLUSÃO DA AÇÃO\u0020</string>
+    <string name="question_mark">\u0020\u003F</string>
+    <string name="select">SELECIONE</string>
+    <string name="amount">VLR TOTAL:</string>
+    <string name="qty">QTDE:</string>
+    <string name="coin">R$:</string>
+    <string name="date">DATA:</string>
+    <string name="code_not_null">CÓDIGO NÃO PODE SER NULO</string>
+    <string name="name_not_null">NOME NÃO PODE SER NULO</string>
+    <string name="new_code">CRIAR CÓDIGO</string>
+    <string name="logout">SAIR</string>
+    <string name="user_not_logged">USUÁRIO NÃO LOGADO</string>
+    <string name="user_created">USUÁRIO CRIADO</string>
+    <string name="erro_creating_user">ERRO AO CRIAR USUÁRIO</string>
+    <string name="logging_success">SUCESSO AO LOGAR</string>
+    <string name="error_when_logging">ERRO AO LOGAR</string>
+    <string name="reset_password">ENVIADO E-MAIL PARA CADASTRAR NOVA SENHA</string>
 </resources>
