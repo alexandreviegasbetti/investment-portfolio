@@ -12,6 +12,7 @@
     <string name="purchase_date">DATA DA COMPRA:</string>
     <string name="hint_insert_purchase_date"> DD/MM/AAAA</string>
     <string name="btn_save">SALVAR</string>
+    <string name="btn_cancel">CANCELAR</string>
     <string name="fields_validation">TODOS CAMPOS DEVEM SER PREENCHIDOS!</string>
     <string name="attention">ATENÇÃO</string>
     <string name="cancel">CANCELAR</string>
