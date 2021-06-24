@@ -22,7 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -37,7 +36,6 @@ import static android.R.layout.simple_spinner_item;
 import static br.com.alexandre.investmentportfolio.config.FireBaseConfig.getReferenceCompany;
 import static br.com.alexandre.investmentportfolio.config.FireBaseConfig.getReferenceInvestment;
 import static java.lang.Double.valueOf;
-import static java.math.BigDecimal.ROUND_UNNECESSARY;
 import static java.math.RoundingMode.HALF_UP;
 import static java.util.Objects.requireNonNull;
 
@@ -204,7 +202,7 @@ public class FormCreateItemActivity extends AppCompatActivity {
                     Company company = co.getValue(Company.class);
                     companyList.add(company);
                 });
-                Collections.sort(codeList, Comparator.comparing(String::valueOf));
+                codeList.sort(Comparator.comparing(String::valueOf));
                 arrayAdapter = new ArrayAdapter<>(FormCreateItemActivity.this, simple_spinner_item, codeList);
                 arrayAdapter.setDropDownViewResource(simple_spinner_dropdown_item);
                 spinner.setAdapter(arrayAdapter);
